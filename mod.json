@@ -8,9 +8,9 @@
 	},
 	"id": "xblazegmd.server-errors",
 	"name": "Server Errors",
+	"description": "Are the servers down or is it just me?",
 	"version": "v1.0.0",
 	"developer": "XblazeGMD",
-	"description": "",
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3",
 		"xblazegmd.geode-api": ">=1.2.0"
