@@ -229,7 +229,7 @@ class $modify(CSWHook, CustomSongWidget) {
 					if (!res.ok()) {
 						ErrorPopup::createAndShow(
 							"Error",
-							fmt::format("The Newgrounds servers are likely <cr>down</c>. Please try again later.\n<cl>(status code: {})</c>", res.code())
+							fmt::format("The Newgrounds servers are <cr>down</c> or <co>unreachable</c>. Please try again later.\n<cl>(status code: {})</c>", res.code())
 						);
 					}
 				}
