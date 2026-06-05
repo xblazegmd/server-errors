@@ -10,4 +10,3 @@ It will also notify you about:
 - Server maintenance
 - Unsafe password "comment bans"
 - Your internet trolling you
-<a href="https://www.flaticon.com/free-icons/server" title="server icons">Server icons created by Those Icons - Flaticon</a>
