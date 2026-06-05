@@ -67,18 +67,13 @@ void areTheServersDown() {
 	);
 }
 
-static bool g_ongoingInternetCheck = false;
 void internetCheck() {
-	if (g_ongoingInternetCheck) return;
-
-	g_ongoingInternetCheck = true;
 	async::spawn(
 		xblazeapi::doWeHaveInternet(),
 		[](bool status) {
 			if (!status) {
 				xblazeapi::quickErrorNotification("No internet connection!");
 			}
-			g_ongoingInternetCheck = false;
 		}
 	);
 }
@@ -98,8 +93,6 @@ class $modify(GLMHook, GameLevelManager) {
 				"The Geometry Dash servers are <cr>down</c> due to an unexpected <co>internal server error</c>"
 			);
 			return;
-		} else if (response->getResponseCode() == 0) {
-			internetCheck();
 		}
 
 		// Helpful code from BetterInfo (sry cvolton)
