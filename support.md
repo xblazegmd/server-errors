@@ -1,0 +1,3 @@
+Just you using this mod is already more than I could ever ask for. So I just wanna say: thank you :)
+
+If you *really* wanna support me in other ways, you can join my [Patreon](https://patreon.com/XblazeGMD) and in exchange get an in-game badge showing that YOU are a supporter of my work. I would also love it if you could subscribe to my [YouTube](https://www.youtube.com/channel/UC2tY605BKdf4K04iTNM_G8w)

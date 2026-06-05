@@ -1,0 +1,18 @@
+{
+	"geode": "5.7.1",
+	"gd": {
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
+	},
+	"id": "xblazegmd.server-errors",
+	"name": "Server Errors",
+	"version": "v1.0.0",
+	"developer": "XblazeGMD",
+	"description": "",
+	"dependencies": {
+		"geode.node-ids": ">=v1.23.3",
+		"xblazegmd.geode-api": ">=1.2.0"
+	}
+}
