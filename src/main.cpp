@@ -218,10 +218,8 @@ class $modify(GLMHook, GameLevelManager) {
 };
 
 class $modify(CSWHook, CustomSongWidget) {
-	void loadSongInfoFailed(int id, GJSongError errorType) {
-		CustomSongWidget::loadSongInfoFailed(id, errorType);
-
-		if (errorType == GJSongError::FailedToFetch) {
+	void isNewgroundsDown(GJSongError type) {
+		if (type == GJSongError::FailedToFetch) {
 			async::spawn(
 				web::WebRequest()
 					.get("http://newgrounds.com/"),
@@ -235,6 +233,16 @@ class $modify(CSWHook, CustomSongWidget) {
 				}
 			);
 		}
+	}
+
+	void loadSongInfoFailed(int id, GJSongError errorType) {
+		CustomSongWidget::loadSongInfoFailed(id, errorType);
+		isNewgroundsDown(errorType);
+	}
+
+	void downloadSongFailed(int id, GJSongError errorType) {
+		CustomSongWidget::downloadSongFailed(id, errorType);
+		isNewgroundsDown(errorType);
 	}
 };
 
