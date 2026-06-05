@@ -53,6 +53,7 @@ private:
 	}
 };
 
+// Internet check
 arc::Future<bool> internetCheckAsync() {
 	auto status = co_await xblazeapi::doWeHaveInternet();
 	if (!status) {
@@ -66,6 +67,7 @@ void internetCheck() {
 	async::spawn(internetCheckAsync());
 }
 
+// Check if the servers are down
 void areTheServersDown() {
 	async::spawn(
 		internetCheckAsync(),
@@ -109,7 +111,7 @@ class $modify(GLMHook, GameLevelManager) {
 			for (const auto& header : string::split(headers, "\n")) {
 				if (header.size() < 14 || !header.starts_with("Retry-After")) continue;
 
-				// rate limited
+				// Rate limited
 				auto time = utils::numFromString<int>(header.substr(13)).unwrapOr(0);
 				ErrorPopup::createAndShow(
 					"Rate Limited",
@@ -124,6 +126,7 @@ class $modify(GLMHook, GameLevelManager) {
 				auto errCode = utils::numFromString<int>(dat.substr(12)).unwrapOr(0);
 				switch (errCode) {
 					case 1005:
+						// ISP Ban
 						ErrorPopup::createAndShow(
 							"ISP Ban",
 							"Your <cy>Internet Service Provider</c> (ISP) has been <cr>banned</c> from the Geometry Dash servers. If you are using a VPN, please disable it and try again <cl>(error code: 1005)</c>"
@@ -132,24 +135,28 @@ class $modify(GLMHook, GameLevelManager) {
 					case 1006:
 					case 1007:
 					case 1008:
+						// IP Ban
 						ErrorPopup::createAndShow(
 							"Banned",
 							"You have been <cr>IP banned</c> from the Geometry Dash servers. If you are using a VPN, please disable it and try again <cl>(error code: 1006)</c>"
 						);
 						break;
 					case 1015:
+						// Rate limit
 						ErrorPopup::createAndShow(
 							"Rate Limited",
 							"You have been <co>rate limited</c> from the Geometry Dash servers. Please try again later <cl>(error code: 1015)</c>"
 						);
 						break;
 					case 1020:
+						// Maintenance
 						ErrorPopup::createAndShow(
 							"Maintenance",
 							"The Geometry Dash servers are undergoing <co>maintenance</c>. Please try again later <cl>(error code: 1020)</c>"
 						);
 						break;
 					default:
+						// Other random error
 						ErrorPopup::createAndShow(
 							"Error",
 							fmt::format("An unexpected server error occured <cl>(error code: {})</c>", errCode)
@@ -162,6 +169,7 @@ class $modify(GLMHook, GameLevelManager) {
 
 	// Commenting Issues
 	void onUploadCommentCompleted(gd::string response, gd::string tag) {
+		// Perma banned (directly by RobTop)
 		if (response == "-10") {
 			ErrorPopup::createAndShow(
 				"Banned",
@@ -175,7 +183,7 @@ class $modify(GLMHook, GameLevelManager) {
 
 			auto duration = utils::numFromString<int>(pieces[1]);
 			if (duration) {
-				// Perma bans
+				// Perma banned
 				auto days = std::round(duration.unwrap() / 86400);
 				if (days >= 35) {
 					std::string msg = "You have been <cr>banned</c> from making comments for an <cy>indefinite time</c> (most likely <co>permanent</c>).";
@@ -221,6 +229,7 @@ class $modify(GLMHook, GameLevelManager) {
 	}
 };
 
+// Newgrounds status
 class $modify(CSWHook, CustomSongWidget) {
 	void isNewgroundsDown(GJSongError type) {
 		if (type == GJSongError::FailedToFetch) {
@@ -250,6 +259,7 @@ class $modify(CSWHook, CustomSongWidget) {
 	}
 };
 
+// Comment loading status
 class $modify(ILHook, InfoLayer) {
 	void loadCommentsFailed(const char* key) {
 		InfoLayer::loadCommentsFailed(key);
