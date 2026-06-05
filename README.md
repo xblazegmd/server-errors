@@ -1,3 +1,5 @@
+<img src="logo.png" width="80" height=auto alt="A beautiful logo that should be in a museum imo" />
+
 # Server Errors
 Are the servers down or is it just me?
 
