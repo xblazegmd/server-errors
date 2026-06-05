@@ -241,17 +241,7 @@ class $modify(CSWHook, CustomSongWidget) {
 class $modify(ILHook, InfoLayer) {
 	void loadCommentsFailed(const char* key) {
 		InfoLayer::loadCommentsFailed(key);
-		async::spawn(
-			xblazeapi::requestGDServers("getGJLevels21.php", fmt::format("type=1&secret={}", xblazeapi::SECRET)),
-			[](Result<std::string, int> res) {
-				if (res.isErr()) {
-					ErrorPopup::createAndShow(
-						"Error",
-						"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
-					);
-				}
-			}
-		);
+		areTheServersDown();
 	}
 
 	void commentUploadFailed(int parentID, CommentError errorType) {
