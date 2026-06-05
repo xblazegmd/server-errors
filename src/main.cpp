@@ -258,13 +258,13 @@ class $modify(ILHook, InfoLayer) {
 
 	void commentUploadFailed(int parentID, CommentError errorType) {
 		InfoLayer::commentUploadFailed(parentID, errorType);
-		areTheServersDown();
+		if (errorType == CommentError::Failed) areTheServersDown();
 	}
 };
 
 class $modify(PPHook, ProfilePage) {
 	void commentUploadFailed(int parentID, CommentError errorType) {
 		ProfilePage::commentUploadFailed(parentID, errorType);
-		areTheServersDown();
+		if (errorType == CommentError::Failed) areTheServersDown();
 	}
 };
