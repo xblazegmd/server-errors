@@ -53,6 +53,17 @@ private:
 	}
 };
 
+void internetCheck() {
+	async::spawn(
+		xblazeapi::doWeHaveInternet(),
+		[](bool status) {
+			if (!status) {
+				xblazeapi::quickErrorNotification("No internet connection!");
+			}
+		}
+	);
+}
+
 void areTheServersDown() {
 	async::spawn(
 		xblazeapi::requestGDServers("getGJLevels21.php", fmt::format("type=1&secret={}", xblazeapi::SECRET)),
