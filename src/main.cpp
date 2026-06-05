@@ -53,27 +53,35 @@ private:
 	}
 };
 
+arc::Future<bool> internetCheckAsync() {
+	auto status = co_await xblazeapi::doWeHaveInternet();
+	if (!status) {
+		xblazeapi::quickErrorNotificationTS("No internet connection!");
+		co_return false;
+	}
+	co_return true;
+}
+
 void internetCheck() {
-	async::spawn(
-		xblazeapi::doWeHaveInternet(),
-		[](bool status) {
-			if (!status) {
-				xblazeapi::quickErrorNotification("No internet connection!");
-			}
-		}
-	);
+	async::spawn(internetCheckAsync());
 }
 
 void areTheServersDown() {
 	async::spawn(
-		xblazeapi::requestGDServers("getGJLevels21.php", fmt::format("type=1&secret={}", xblazeapi::SECRET)),
-		[](Result<std::string, int> res) {
-			if (res.isErr()) {
-				ErrorPopup::createAndShow(
-					"Error",
-					"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
-				);
-			}
+		internetCheckAsync(),
+		[](bool status) {
+			if (!status) return;
+			async::spawn(
+				xblazeapi::requestGDServers("getGJLevels21.php", fmt::format("type=1&secret={}", xblazeapi::SECRET)),
+				[](Result<std::string, int> res) {
+					if (res.isErr()) {
+						ErrorPopup::createAndShow(
+							"Error",
+							"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
+						);
+					}
+				}
+			);
 		}
 	);
 }
