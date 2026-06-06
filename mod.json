@@ -14,5 +14,9 @@
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3",
 		"xblazegmd.geode-api": ">=1.2.0"
+	},
+	"links": {
+		"homepage": "https://xblaze.netlify.app",
+		"source": "https://github.com/xblazegmd/server-errors"
 	}
 }
