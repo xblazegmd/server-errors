@@ -13,7 +13,7 @@
 	"developer": "XblazeGMD",
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3",
-		"xblazegmd.geode-api": ">=1.2.0"
+		"xblazegmd.geode-api": ">=2.0.0"
 	},
 	"links": {
 		"homepage": "https://xblaze.netlify.app",
