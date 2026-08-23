@@ -186,7 +186,7 @@ class $modify(GLMHook, GameLevelManager) {
 				// Perma banned
 				auto days = std::round(duration.unwrap() / 86400);
 				if (days >= 35) {
-					std::string msg = "You have been <cr>banned</c> from making comments for an <cy>indefinite time</c> (most likely <co>permanent</c>).";
+					std::string msg = "You have been <cr>banned</c> from making comments for an <cy>indefinite time</c> (most likely <co>permanently</c>).";
 
 					if (pieces.size() > 2) {
 						msg += fmt::format("\n\n<cl>Reason: {}</c>", pieces[2]);
