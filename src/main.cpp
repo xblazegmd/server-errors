@@ -72,17 +72,24 @@ void areTheServersDown() {
 		internetCheckAsync(),
 		[](bool status) {
 			if (!status) return;
-			async::spawn(
-				xblazeapi::requestGDServers("getGJLevels21.php", fmt::format("type=1&secret={}", xblazeapi::SECRET)),
-				[](Result<std::string, int> res) {
-					if (res.isErr()) {
-						ErrorPopup::createAndShow(
-							"Error",
-							"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
-						);
-					}
-				}
-			);
+
+            // Add some delay to try and fix some issues
+            async::spawn(
+                xblazeapi::sleepMillis(100),
+                [] {
+			        async::spawn(
+			        	xblazeapi::requestGDServers("getGJLevels21.php", fmt::format("type=1&secret={}", xblazeapi::SECRET)),
+			        	[](Result<std::string, int> res) {
+			        		if (res.isErr()) {
+			        			ErrorPopup::createAndShow(
+			        				"Error",
+			        				"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
+			        			);
+			        		}
+			        	}
+			        );
+                }
+            );
 		}
 	);
 }
