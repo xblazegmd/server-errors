@@ -213,7 +213,7 @@ class $modify(CSWHook, CustomSongWidget) {
 		if (type == GJSongError::FailedToFetch) {
 			async::spawn(
 				web::WebRequest()
-					.get("http://newgrounds.com/"),
+					.get("https://newgrounds.com/"),
 				[](web::WebResponse res) {
 					if (!res.ok()) {
 						ErrorPopup::createAndShow(
