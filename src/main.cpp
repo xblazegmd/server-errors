@@ -88,7 +88,7 @@ void areTheServersDown() {
                     if (!res.ok()) {
 			        	ErrorPopup::createAndShow(
 			        		"Error",
-			        		fmt::format("The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>")
+			        		"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
 			        	);
                         return;
                     }
@@ -97,7 +97,7 @@ void areTheServersDown() {
                     if (num.isOk() && num.unwrap() < 0) {
 			        	ErrorPopup::createAndShow(
 			        		"Error",
-			        		fmt::format("The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>")
+			        		"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
 			        	);
                     }
 			    }
@@ -112,10 +112,10 @@ class $modify(GLMHook, GameLevelManager) {
 		GameLevelManager::onProcessHttpRequestCompleted(client, response);
 
         int code = response->getResponseCode();
-		if (code >= 500 && code < 600) {
+		if (code >= 500 && code < 600) { // 5xx error
 			ErrorPopup::createAndShow(
 				"Error",
-				fmt::format("The Geometry Dash servers are <cr>down</c> due to an unexpected <co>server error</c> (status code: {})", code)
+				fmt::format("The Geometry Dash servers are <cr>down</c> due to an unexpected <co>server error</c> <cl>(status code: {})</c>", code)
 			);
 			return;
 		}
