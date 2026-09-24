@@ -80,9 +80,7 @@ void areTheServersDown() {
 			        		"Error",
 			        		fmt::format("The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>: {}", res.unwrapErr())
 			        	);
-			        } else {
-                        FLAlertLayer::create("stuff", res.unwrap().c_str(), "OK");
-                    }
+			        }
 			    }
 			);
 		}
