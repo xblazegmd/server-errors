@@ -78,7 +78,7 @@ void areTheServersDown() {
 					if (res.isErr()) {
 						ErrorPopup::createAndShow(
 							"Error",
-							"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
+							fmt::format("The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>: {}", res.unwrapErr())
 						);
 					}
 				}
