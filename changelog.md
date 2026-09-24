@@ -1,7 +1,7 @@
 # Server Errors
 ## v1.1.0
 - Remove indefinite/permanent comment ban popup (comment bans now show their full duration)
-- Fixed bug that showed a popup saying "The Geometry Dash servers are down or unreachable" when they were online
+- Fixed bug that showed a popup saying "The Geometry Dash servers are down or unreachable" while they were online
 - Use HTTPS instead of HTTP when checking for the Newgrounds status
 
 ## v1.0.2
