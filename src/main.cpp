@@ -4,7 +4,6 @@
 #include <Geode/modify/InfoLayer.hpp>
 #include <Geode/modify/ProfilePage.hpp>
 
-#include <cmath>
 #include <string>
 
 #include <xblazegmd.geode-api/include/XblazeAPI.hpp>
@@ -183,32 +182,6 @@ class $modify(GLMHook, GameLevelManager) {
 
 			auto duration = utils::numFromString<int>(pieces[1]);
 			if (duration) {
-				// Perma banned
-				auto days = std::round(duration.unwrap() / 86400);
-				if (days >= 35) {
-					std::string msg = "You have been <cr>banned</c> from making comments for an <cy>indefinite time</c> (most likely <co>permanently</c>).";
-
-					if (pieces.size() > 2) {
-						msg += fmt::format("\n\n<cl>Reason: {}</c>", pieces[2]);
-					}
-
-					ErrorPopup::createAndShow(
-						"Banned",
-						msg,
-						"Help",
-						[] {
-							FLAlertLayer::create(
-								"Indefinite bans",
-								"The in-game timer for comment bans only goes up to <cy>34 days and 22 hours</c>. Bans longer than that are usually much longer, and are likely <co>permanent</c>.\n"
-								"You can contact an <cp>Elder Moderator</c> to verify the longevity of the ban\n\n"
-								"<cl>P.S. You are seeing this popup thanks to the Server Errors Geode mod. yw /Xblaze</c>",
-								"OK"
-							)->show();
-						}
-					);
-					return;
-				}
-
 				// Insecure password
 				if (pieces.size() > 2 && string::startsWith(pieces[2], "You cant comment because your password is insecure")) {
 					ErrorPopup::createAndShow(
