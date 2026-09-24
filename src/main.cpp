@@ -72,15 +72,34 @@ void areTheServersDown() {
 		internetCheckAsync(),
 		[](bool status) {
 			if (!status) return;
+
+            // Manually send request cuz xblazeapi::requestGDServers doesn't want to work bruh
+            auto req = web::WebRequest()
+                .userAgent("")
+                .bodyString(xblazeapi::buildBodyString({
+                    { "type", "1" },
+                    { "secret", xblazeapi::SECRET }
+                }))
+                .timeout(std::chrono::seconds(10));
+
 			async::spawn(
-			    xblazeapi::requestGDServers("getGJLevels21.php", fmt::format("type=1&secret={}", xblazeapi::SECRET)),
-			    [](Result<std::string, int> res) {
-			        if (res.isErr()) {
+                req.post("https://www.boomlings.com/database/getGJLevels21.php"),
+			    [](web::WebResponse res) {
+                    if (!res.ok()) {
 			        	ErrorPopup::createAndShow(
 			        		"Error",
-			        		fmt::format("The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>: {}", res.unwrapErr())
+			        		fmt::format("The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>")
 			        	);
-			        }
+                        return;
+                    }
+
+                    auto num = utils::numFromString<int>(res.string().unwrapOr("-100"));
+                    if (num.isOk() && num.unwrap() < 0) {
+			        	ErrorPopup::createAndShow(
+			        		"Error",
+			        		fmt::format("The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>")
+			        	);
+                    }
 			    }
 			);
 		}
