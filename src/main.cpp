@@ -197,21 +197,17 @@ class $modify(GLMHook, GameLevelManager) {
 			return;
 		}
 
+        // Temporary ban format: "temp_{duration}_{reason}"
 		if (string::startsWith(response, "temp")) {
 			auto pieces = string::split(response, "_");
 
-			auto duration = utils::numFromString<int>(pieces[1]);
-			if (duration) {
-				// Insecure password
-				if (pieces.size() > 2 && string::startsWith(pieces[2], "You cant comment because your password is insecure")) {
-					ErrorPopup::createAndShow(
-						"Unsafe Password",
-						"Your password is <co>too insecure</c>. Please change your password to reenable commenting"
-					);
-					return;
-				}
-			} else {
-				log::error("Could not convert ban duration to int: {}", duration.unwrapErr());
+			// Insecure password
+			if (pieces.size() > 2 && string::startsWith(pieces[2], "You cant comment because your password is insecure")) {
+				ErrorPopup::createAndShow(
+					"Unsafe Password",
+					"Your password is <co>too insecure</c>. Please change your password to reenable commenting"
+				);
+				return;
 			}
 
 			// There is no reason to modify the existing comment ban
