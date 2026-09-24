@@ -111,10 +111,11 @@ class $modify(GLMHook, GameLevelManager) {
 	void onProcessHttpRequestCompleted(extension::CCHttpClient* client, extension::CCHttpResponse* response) {
 		GameLevelManager::onProcessHttpRequestCompleted(client, response);
 
-		if (response->getResponseCode() == 500) {
+        int code = response->getResponseCode();
+		if (code >= 500 && code < 600) {
 			ErrorPopup::createAndShow(
 				"Error",
-				"The Geometry Dash servers are <cr>down</c> due to an unexpected <co>internal server error</c>"
+				fmt::format("The Geometry Dash servers are <cr>down</c> due to an unexpected <co>server error</c> (status code: {})", code)
 			);
 			return;
 		}
