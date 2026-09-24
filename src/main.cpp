@@ -93,12 +93,14 @@ void areTheServersDown() {
                         return;
                     }
 
-                    auto num = utils::numFromString<int>(res.string().unwrapOr("-100"));
-                    if (num.isOk() && num.unwrap() < 0) {
-			        	ErrorPopup::createAndShow(
-			        		"Error",
-			        		"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
-			        	);
+                    if (res.string().isOk()) {
+                        auto num = utils::numFromString<int>(res.string().unwrap());
+                        if (num.isOk() && num.unwrap() < 0) {
+			            	ErrorPopup::createAndShow(
+			            		"Error",
+			            		"The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>"
+			            	);
+                        }
                     }
 			    }
 			);
