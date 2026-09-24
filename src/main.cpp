@@ -72,10 +72,8 @@ void areTheServersDown() {
 		internetCheckAsync(),
 		[](bool status) {
 			if (!status) return;
-
-            // Add some delay to try and fix some issues
             async::spawn(
-                xblazeapi::sleepMillis(100),
+                xblazeapi::sleepMillis(500), // Delay request to try and avoid issues
                 [] {
 			        async::spawn(
 			        	xblazeapi::requestGDServers("getGJLevels21.php", fmt::format("type=1&secret={}", xblazeapi::SECRET)),
