@@ -80,7 +80,9 @@ void areTheServersDown() {
 			        		"Error",
 			        		fmt::format("The Geometry Dash servers are <cr>down</c> or <co>unreachable</c>: {}", res.unwrapErr())
 			        	);
-			        }
+			        } else {
+                        FLAlertLayer::create("stuff", res.unwrap().c_str(), "OK");
+                    }
 			    }
 			);
 		}
@@ -246,6 +248,11 @@ class $modify(ILHook, InfoLayer) {
 };
 
 class $modify(PPHook, ProfilePage) {
+    void loadCommentsFailed(const char* key) {
+        ProfilePage::loadCommentsFailed(key);
+        areTheServersDown();
+    }
+
 	void commentUploadFailed(int parentID, CommentError errorType) {
 		ProfilePage::commentUploadFailed(parentID, errorType);
 		if (errorType == CommentError::Failed) areTheServersDown();
