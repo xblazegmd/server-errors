@@ -2,7 +2,7 @@
 ## v1.2.0
 - Update to Geode v6
 - Update Xblaze's Geode API
-- Remove direct permanent ban popup <ca6a6a6>(implemented in 2.209)</c>
+- Remove direct permanent ban popup (implemented in 2.209)
 - Temporarily remove iOS support
 
 ## v1.1.0
