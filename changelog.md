@@ -1,4 +1,9 @@
 # Server Errors
+## v1.2.0
+- Update to Geode v6
+- Update Xblaze's Geode API
+- Remove direct permanent ban popup <ca6a6a6>(implemented in 2.209)</c>
+
 ## v1.1.0
 - Remove indefinite/permanent comment ban popup <c-a6a6a6>(comment bans now show their full duration)</c>
 - Fixed bug that showed a popup saying "The Geometry Dash servers are down or unreachable" while they were online
