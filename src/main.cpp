@@ -177,8 +177,6 @@ class $modify(GLMHook, GameLevelManager) {
 	}
 
 	// Commenting Issues
-    // (temporarily disabled on iOS)
-    #ifndef GEODE_IS_IOS
 	void onUploadCommentCompleted(std::string response, std::string tag) {
         // Temporary ban format: "temp_{duration}_{reason}"
 		if (string::startsWith(response, "temp")) {
@@ -199,7 +197,6 @@ class $modify(GLMHook, GameLevelManager) {
 
 		GameLevelManager::onUploadCommentCompleted(response, tag);
 	}
-    #endif
 };
 
 // Newgrounds status

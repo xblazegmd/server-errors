@@ -3,7 +3,7 @@
 - Update to Geode v6
 - Update Xblaze's Geode API
 - Remove direct permanent ban popup <ca6a6a6>(implemented in 2.209)</c>
-- Temporarily disable insecure password popup on iOS
+- Temporarily remove iOS support
 
 ## v1.1.0
 - Remove indefinite/permanent comment ban popup <c-a6a6a6>(comment bans now show their full duration)</c>
