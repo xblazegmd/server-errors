@@ -191,15 +191,6 @@ class $modify(GLMHook, GameLevelManager) {
 
 	// Commenting Issues
 	void onUploadCommentCompleted(std::string response, std::string tag) {
-		// Perma banned (directly by RobTop)
-		if (response == "-10") {
-			ErrorPopup::createAndShow(
-				"Banned",
-				"You have been <co>permanently</c> <cr>banned</c> from commenting. Please contact support if you have any questions"
-			);
-			return;
-		}
-
         // Temporary ban format: "temp_{duration}_{reason}"
 		if (string::startsWith(response, "temp")) {
 			auto pieces = string::split(response, "_");
