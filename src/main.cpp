@@ -34,7 +34,6 @@ public:
 	}
 private:
 	static inline ErrorPopup* s_instance = nullptr;
-	geode::Function<void()> m_btn2Cb;
 
 	void FLAlert_Clicked(FLAlertLayer*, bool) override {
 		s_instance = nullptr;
