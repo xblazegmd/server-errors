@@ -1,4 +1,5 @@
 #include <Geode/Geode.hpp>
+#include <Geode/ui/Notification.hpp>
 #include <Geode/modify/GameLevelManager.hpp>
 #include <Geode/modify/CustomSongWidget.hpp>
 #include <Geode/modify/InfoLayer.hpp>
@@ -6,7 +7,7 @@
 
 #include <string>
 
-#include <xblazegmd.geode-api/include/XblazeAPI.hpp>
+#include <XblazeAPI.hpp>
 
 using namespace geode::prelude;
 
@@ -56,7 +57,7 @@ private:
 arc::Future<bool> internetCheckAsync() {
 	auto status = co_await xblazeapi::doWeHaveInternet();
 	if (!status) {
-		xblazeapi::quickErrorNotificationTS("No internet connection!");
+		xblazeapi::quickNotificationTS("No internet connection!", NotificationIcon::Error);
 		co_return false;
 	}
 	co_return true;
@@ -76,11 +77,11 @@ void areTheServersDown() {
             // Manually send request cuz xblazeapi::requestGDServers doesn't want to work bruh
             auto req = web::WebRequest()
                 .userAgent("")
-                .bodyString(xblazeapi::buildBodyString({
+                .bodyString(xblazeapi::bodyString({
                     { "type", "1" },
                     { "secret", xblazeapi::SECRET }
                 }))
-                .timeout(std::chrono::seconds(10));
+                .timeout(asp::Duration::fromSecs(10));
 
 			async::spawn(
                 req.post("https://www.boomlings.com/database/getGJLevels21.php"),
@@ -189,7 +190,7 @@ class $modify(GLMHook, GameLevelManager) {
 	}
 
 	// Commenting Issues
-	void onUploadCommentCompleted(gd::string response, gd::string tag) {
+	void onUploadCommentCompleted(std::string response, std::string tag) {
 		// Perma banned (directly by RobTop)
 		if (response == "-10") {
 			ErrorPopup::createAndShow(

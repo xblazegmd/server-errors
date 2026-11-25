@@ -22,9 +22,9 @@ endif()
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
-target_include_directories(${PROJECT_NAME} PRIVATE src/)
-
-CPMAddPackage("gh:xblazegmd/xblaze-geode-api2@b7c7689")
+CPMAddPackage("gh:xblazegmd/xblaze-geode-api2#b7c7689")
 target_link_libraries(${PROJECT_NAME} xblaze-geode-api)
+
+target_include_directories(${PROJECT_NAME} PRIVATE src/)
 
 setup_geode_mod(${PROJECT_NAME})
