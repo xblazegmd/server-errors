@@ -1,5 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/ui/Notification.hpp>
+
 #include <Geode/modify/GameLevelManager.hpp>
 #include <Geode/modify/CustomSongWidget.hpp>
 #include <Geode/modify/InfoLayer.hpp>
@@ -15,19 +16,15 @@ using namespace geode::prelude;
 class ErrorPopup final : public FLAlertLayer, public FLAlertLayerProtocol {
 public:
 	static ErrorPopup* create(const char* title, std::string msg) {
-		return ErrorPopup::create(title, std::move(msg), nullptr, nullptr);
-	}
-
-	static ErrorPopup* create(const char* title, std::string msg, const char* btn2, geode::Function<void()> btn2Cb, float width = 300.f) {
-		if (s_instance) return nullptr;
-		auto ret = new ErrorPopup();
-		ret->m_btn2Cb = std::move(btn2Cb);
-		if (ret->init(ret, title, std::move(msg), "OK", btn2, 350.f, false, 0.f, 1.f)) {
-			ret->autorelease();
-			s_instance = ret;
-			return ret;
-		}
-		return nullptr;
+        if (s_instance) return nullptr;
+        auto ret = new ErrorPopup();
+        if (ret->init(ret, title, std::move(msg), "OK", nullptr, 350.f, false, 0.f, 1.f)) {
+            ret->autorelease();
+            s_instance = ret;
+            return ret;
+        }
+        delete ret;
+        return nullptr;
 	}
 
 	/// Safe way to make a popup and show it without risking crashes
@@ -35,20 +32,11 @@ public:
 		auto instance = ErrorPopup::create(title, std::move(msg));
 		if (instance) instance->show();
 	}
-
-	/// Safe way to make a popup and show it without risking crashes
-	static void createAndShow(const char* title, std::string msg, const char* btn2, geode::Function<void()> btn2Cb) {
-		auto instance = ErrorPopup::create(title, std::move(msg), btn2, std::move(btn2Cb));
-		if (instance) instance->show();
-	}
 private:
 	static inline ErrorPopup* s_instance = nullptr;
 	geode::Function<void()> m_btn2Cb;
 
-	void FLAlert_Clicked(FLAlertLayer* layer, bool btn2) override {
-		if (btn2 && m_btn2Cb) {
-			m_btn2Cb();
-		}
+	void FLAlert_Clicked(FLAlertLayer*, bool) override {
 		s_instance = nullptr;
 	}
 };
